@@ -19,11 +19,12 @@ jobs:
          username: sooscode
          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push Docker image
+        shell: powershell -ExecutionPolicy Bypass -Command "{0}"
         run: |
           docker build -t sooscode/flask_app_lives:latest .
           docker push sooscode/flask_app_lives:latest
-        shell: powershell -ExecutionPolicy Bypass
-
      
       - name: Deploy locally
         run: powershell -ExecutionPolicy Bypass -File ".\deploy.ps1"
+
+
