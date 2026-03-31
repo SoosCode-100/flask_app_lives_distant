@@ -19,11 +19,10 @@ jobs:
          username: sooscode
          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push Docker image
-        shell: powershell
         run: |
-          Set-ExecutionPolicy RemoteSigned -Scope Process -Force
           docker build -t sooscode/flask_app_lives:latest .
           docker push sooscode/flask_app_lives:latest
+        shell: powershell -ExecutionPolicy Bypass
 
      
       - name: Deploy locally
