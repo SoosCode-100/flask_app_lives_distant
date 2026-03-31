@@ -1,0 +1,25 @@
+name: Docker CI Pipeline
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: login to Docker hub
+        uses: docker/login-action@v2
+        with:
+          username: sooscode
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: docker build -t sooscode/flask-app:v2 .
+
+      - name: Push Docker image
+        run: docker push sooscode/flask-app:v2
+  
+  
