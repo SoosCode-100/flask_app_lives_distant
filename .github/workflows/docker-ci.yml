@@ -4,8 +4,9 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
+  docker_build_deploy:   
+    name: Docker Build & Deploy
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -17,9 +18,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
-        run: docker build -t sooscode/flask-app:v2 .
+        run: docker build -t sooscode/flask-app_lives:v2 .
 
       - name: Push Docker image
-        run: docker push sooscode/flask-app:v2
-  
-  
+        run: docker push sooscode/flask-app_lives:v2
+
+      - name: Deploy locally
+        run: powershell -ExecutionPolicy Bypass -File ".\deploy.ps1"
