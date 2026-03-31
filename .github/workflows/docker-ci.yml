@@ -12,7 +12,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+      - name: Set PowerShell Execution Policy
+        shell: powershell
+        run: Set-ExecutionPolicy RemoteSigned -Scope Process -Force
+            
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
